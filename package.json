@@ -1,0 +1,24 @@
+{
+  "name": "sketchbook",
+  "version": "0.0.1",
+  "description": "My p5 sketches",
+  "scripts": {
+    "manifest": "node scripts/generateManifest.js",
+    "optimize": "./scripts/optimize.sh media/",
+    "precommit": "npm run optimize && dvc add media && dvc push && npm run manifest && git add media.dvc && git add manifest.json" 
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TiborUdvari/sketchbook.git"
+  },
+  "author": "Tibor Udvari",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/TiborUdvari/sketchbook/issues"
+  },
+  "homepage": "https://github.com/TiborUdvari/sketchbook#readme",
+  "devDependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "husky": "^9.0.11"
+  }
+}

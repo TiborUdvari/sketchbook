@@ -1,0 +1,6 @@
+outs:
+- md5: 3327a7b1db113b06f7a4da0ccdaf55be.dir
+  size: 8781534
+  nfiles: 4
+  hash: md5
+  path: media

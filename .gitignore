@@ -1,5 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/vim,visualstudiocode,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=vim,visualstudiocode,macos
+.env
+node_modules
 
 ### macOS ###
 # General
@@ -75,3 +77,4 @@ tags
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/vim,visualstudiocode,macos
+/media

@@ -1,0 +1,6 @@
+[core]
+    analytics = false
+    remote = azure-remote
+    autostage = true
+['remote "azure-remote"']
+    url = azure://sketchbook/

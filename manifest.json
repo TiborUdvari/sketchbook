@@ -1,0 +1,11 @@
+[
+  {
+    "path": "spatial-computing/hello-box/",
+    "name": "Hello AR Box",
+    "description": "A static box in Augmented Reality using p5.xr",
+    "tags": "cube, box, example, augmented reality, spatial computing, p5.xr, p5.js",
+    "date": "2024-04-10",
+    "media": "hello-box",
+    "p5editor": "buM_0hPkq"
+  }
+]
