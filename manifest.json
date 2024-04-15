@@ -1,5 +1,59 @@
 [
   {
+    "path": "spatial-computing/basics/dvd/",
+    "name": "DVD",
+    "description": "The DVD icon bouncing in 3d",
+    "tags": "p5.xr",
+    "date": "2024-04-15",
+    "media": "dvd",
+    "p5editor": ""
+  },
+  {
+    "path": "spatial-computing/basics/dvd-box/",
+    "name": "DVD Box",
+    "description": "A box bouncing around a bigger box like a dvd",
+    "tags": "p5.xr",
+    "date": "2024-04-15",
+    "media": "dvd-box",
+    "p5editor": ""
+  },
+  {
+    "path": "spatial-computing/handtracking/finger-lines/",
+    "name": "Finger Lines",
+    "description": "Lines drawn between fingers with p5.xr",
+    "tags": "p5.xr, hand-tracking",
+    "date": "2024-04-15",
+    "media": "finger-lines",
+    "p5editor": ""
+  },
+  {
+    "path": "spatial-computing/handtracking/finger-pyramid/",
+    "name": "Finger Pyramid",
+    "description": "A pyramid with a pointer finger inside a cube.",
+    "tags": "p5.xr, hand-tracking",
+    "date": "2024-04-15",
+    "media": "finger-pyramid",
+    "p5editor": ""
+  },
+  {
+    "path": "spatial-computing/handtracking/full-hands/",
+    "name": "Full Hands",
+    "description": "p5.xr showing spheres on each hand joint with hand tracking.",
+    "tags": "p5.xr, hand-tracking, example",
+    "date": "2024-04-15",
+    "media": "full-hands",
+    "p5editor": ""
+  },
+  {
+    "path": "spatial-computing/handtracking/hello-handtracking/",
+    "name": "Hello Handtracking",
+    "description": "The starter example for p5.xr hand tracking",
+    "tags": "p5.xr, hand-tracking, example",
+    "date": "2024-04-15",
+    "media": "hello-handtracking",
+    "p5editor": ""
+  },
+  {
     "path": "spatial-computing/hello-box/",
     "name": "Hello AR Box",
     "description": "A static box in Augmented Reality using p5.xr",

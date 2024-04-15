@@ -10,6 +10,7 @@ const manifest = [];
 function readDirectory(dir) {
     // Read all files and directories within the current directory
     fs.readdirSync(dir).forEach(file => {
+        if (file === 'node_modules') return;
         const fullPath = path.join(dir, file);
         // Check if the file is a directory
         if (fs.statSync(fullPath).isDirectory()) {
