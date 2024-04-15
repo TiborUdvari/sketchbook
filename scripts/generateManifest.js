@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { join, relative, dirname } from 'path';
 import { load } from 'cheerio';
-import { getSketchDirs } from './utils.js';
+import { getSketchIndexes } from './utils.js';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -10,7 +10,7 @@ const directoryPath = join(__dirname, '..');
 
 function generateManifest() {
   const manifest = [];
-  const sketchDirs = getSketchDirs();
+  const sketchDirs = getSketchIndexes();
   for (const sketchDir of sketchDirs) {
     //const fullPath = join(sketchDir, 'index.html');
     const fullPath = sketchDir;

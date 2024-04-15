@@ -6,7 +6,7 @@
     "tags": "p5.xr",
     "date": "2024-04-15",
     "media": "dvd",
-    "p5editor": ""
+    "p5editor": "e45z248dv"
   },
   {
     "path": "spatial-computing/basics/dvd-box/",
@@ -15,7 +15,7 @@
     "tags": "p5.xr",
     "date": "2024-04-15",
     "media": "dvd-box",
-    "p5editor": ""
+    "p5editor": "8asFlgce_"
   },
   {
     "path": "spatial-computing/handtracking/finger-lines/",
@@ -24,7 +24,7 @@
     "tags": "p5.xr, hand-tracking",
     "date": "2024-04-15",
     "media": "finger-lines",
-    "p5editor": ""
+    "p5editor": "pAzrJVccM"
   },
   {
     "path": "spatial-computing/handtracking/finger-pyramid/",
@@ -33,7 +33,7 @@
     "tags": "p5.xr, hand-tracking",
     "date": "2024-04-15",
     "media": "finger-pyramid",
-    "p5editor": ""
+    "p5editor": "Yqu7LTTcZ"
   },
   {
     "path": "spatial-computing/handtracking/full-hands/",
@@ -42,7 +42,7 @@
     "tags": "p5.xr, hand-tracking, example",
     "date": "2024-04-15",
     "media": "full-hands",
-    "p5editor": ""
+    "p5editor": "Pm3CDGkge"
   },
   {
     "path": "spatial-computing/handtracking/hello-handtracking/",
@@ -51,7 +51,7 @@
     "tags": "p5.xr, hand-tracking, example",
     "date": "2024-04-15",
     "media": "hello-handtracking",
-    "p5editor": ""
+    "p5editor": "slojmWOfU"
   },
   {
     "path": "spatial-computing/hello-box/",
@@ -60,6 +60,15 @@
     "tags": "cube, box, example, augmented reality, spatial computing, p5.xr, p5.js",
     "date": "2024-04-10",
     "media": "hello-box",
-    "p5editor": "buM_0hPkq"
+    "p5editor": "G1S1g40xx"
+  },
+  {
+    "path": "utils/dumb-reload/",
+    "name": "p5.js Dumb Live Reload",
+    "description": "Example showing how to use dumb live reload.",
+    "tags": "p5.js, live reload, utility",
+    "date": "2024-05-04",
+    "media": "dumb-live-reload",
+    "p5editor": ""
   }
 ]

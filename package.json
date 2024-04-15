@@ -17,7 +17,7 @@
     "metadata": "node scripts/updateMetadata.js",
     "editorUpload": "node scripts/editorUpload.js",
     "editorSync": "npm run metadata && npm run editorUpload && npm run metadata",
-    "precommit": "npm run media && npm run editorSync && npm run manifest"
+    "precommit": "npm run media && npm run metadata && npm run manifest"
   },
   "repository": {
     "type": "git",
