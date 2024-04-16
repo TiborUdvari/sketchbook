@@ -5,7 +5,13 @@
   "scripts": {
     "manifest": "node scripts/generateManifest.js",
     "optimize": "./scripts/optimize.sh media/",
-    "precommit": "npm run optimize && dvc add media && dvc push && npm run manifest && git add media.dvc && git add manifest.json" 
+    "precommit": "npm run optimize && dvc add media && dvc push && npm run manifest && git add media.dvc && git add manifest.json",
+    "setup-ssl": "npm run generate-privatekey && npm run generate-csr && npm run generate-cert",
+    "generate-privatekey": "openssl genrsa -out key.pem",
+    "generate-csr": "openssl req -new -key key.pem -out csr.pem",
+    "generate-cert": "openssl x509 -req -days 365 -in csr.pem -signkey key.pem -out cert.pem",
+    "dev-server": "http-server -S -C cert.pem -K key.pem -o",
+    "dev-server-named-not-good-for-quest": "http-server -S -C cert.pem -K key.pem -o -a tibor16.local"
   },
   "repository": {
     "type": "git",
@@ -19,6 +25,7 @@
   "homepage": "https://github.com/TiborUdvari/sketchbook#readme",
   "devDependencies": {
     "cheerio": "^1.0.0-rc.12",
+    "http-server": "^14.1.1",
     "husky": "^9.0.11"
   }
 }
