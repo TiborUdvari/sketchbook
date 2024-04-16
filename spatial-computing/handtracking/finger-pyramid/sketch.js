@@ -3,21 +3,30 @@ function preload() {
 }
 
 function setup() {
-  describe("Lines between each finger of your hand");
+  describe("A pyramid with your finger at the peak inside a box.");
 }
 
+// todo - create coords for the interaction space
+// should it be 0 to 1 ? - probably to make it simpler
+// make it a space of 1 centered around the origin
+// move the origin elsewhere
+
 function draw() {
+  let f = 0.5;
+
   stroke(255);
-
-  for (let i = 0; i < fingersMain.length; i++) {
-    const currentFinger = fingersMain[i];
-    const nextFinger = fingersMain[(i+1) % fingersMain.length];
-    line(currentFinger.x, currentFinger.y, currentFinger.z, nextFinger.x, nextFinger.y, nextFinger.z);
-  }
-
-  for (let i = 0; i < fingersAlt.length; i++) {
-    const currentFinger = fingersAlt[i];
-    const nextFinger = fingersAlt[(i+1) % fingersAlt.length];
-    line(currentFinger.x, currentFinger.y, currentFinger.z, nextFinger.x, nextFinger.y, nextFinger.z);
-  }
+  fill(0, 0, 0, 0);
+  noFill();
+  let s = 1;
+  push();
+  translate(0, 0, -f);
+  scale(1);
+  box(s, s, s);
+  pop();
+  //
+  // push();
+  // translate(finger.x, finger.y, finger.z);
+  // scale(0.1);
+  // sphere(1);
+  // pop();
 }
