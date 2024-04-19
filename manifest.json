@@ -36,6 +36,15 @@
     "p5editor": "Yqu7LTTcZ"
   },
   {
+    "path": "spatial-computing/handtracking/fingers-pinched/",
+    "name": "Finger Pinch",
+    "description": "Pinching fingers to interact.",
+    "tags": "p5.xr, hand tracking, interaction, example",
+    "date": "2024-05-04",
+    "media": "pinch",
+    "p5editor": ""
+  },
+  {
     "path": "spatial-computing/handtracking/full-hands/",
     "name": "Full Hands",
     "description": "p5.xr showing spheres on each hand joint with hand tracking.",
@@ -52,6 +61,15 @@
     "date": "2024-04-15",
     "media": "hello-handtracking",
     "p5editor": "slojmWOfU"
+  },
+  {
+    "path": "spatial-computing/handtracking/pinch-drawing/",
+    "name": "Pinch Drawing",
+    "description": "One handed drawing with pinch gesture.",
+    "tags": "p5.xr, hand tracking, drawing",
+    "date": "2024-05-04",
+    "media": "pinch-drawing",
+    "p5editor": ""
   },
   {
     "path": "spatial-computing/hello-box/",
