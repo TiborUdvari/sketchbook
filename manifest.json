@@ -1,5 +1,14 @@
 [
   {
+    "path": "spatial-computing/basics/dbn-chair/",
+    "name": "DBN chair",
+    "description": "A chair in Mixed Reality.",
+    "tags": "p5.js, example, shapes",
+    "date": "2024-05-04",
+    "media": "dbn-lifesize",
+    "p5editor": ""
+  },
+  {
     "path": "spatial-computing/basics/dvd/",
     "name": "DVD",
     "description": "The DVD icon bouncing in 3d",
