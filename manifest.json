@@ -54,6 +54,15 @@
     "p5editor": "Yqu7LTTcZ"
   },
   {
+    "path": "spatial-computing/handtracking/finger-trails/",
+    "name": "Finger Trails",
+    "description": "Leave trails with left fingers while right hand is pinched.",
+    "tags": "p5.xr, hand tracking, interaction",
+    "date": "2024-05-05",
+    "media": "finger-trails",
+    "p5editor": "EDITORID"
+  },
+  {
     "path": "spatial-computing/handtracking/fingers-pinched/",
     "name": "Finger Pinch",
     "description": "Pinching fingers to interact.",
