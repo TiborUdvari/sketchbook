@@ -27,6 +27,15 @@
     "p5editor": "8asFlgce_"
   },
   {
+    "path": "spatial-computing/handtracking/finger-frame/",
+    "name": "Finger Frame",
+    "description": "Frame with your fingers",
+    "tags": "p5.xr, hand tracking, interaction",
+    "date": "2024-05-05",
+    "media": "finger-frame",
+    "p5editor": ""
+  },
+  {
     "path": "spatial-computing/handtracking/finger-lines/",
     "name": "Finger Lines",
     "description": "Lines drawn between fingers with p5.xr",
