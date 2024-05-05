@@ -6,10 +6,13 @@
     "esModuleInterop": true,
     "checkJs": true,
     "baseUrl": ".",
+    "types": ["p5"],
     "paths": {
-      "*": ["types/*"]
+      "*": ["types/*"],
+      "p5": ["node_modules/@types/p5"],
+      "p5/*": ["node_modules/@types/p5/*"]
     }
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.js"]
+  "include": ["**/*.js", "node_modules/@types/p5/*.d.ts"]
 }
