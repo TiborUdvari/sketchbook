@@ -54,6 +54,15 @@
     "p5editor": "pAzrJVccM"
   },
   {
+    "path": "spatial-computing/handtracking/finger-numbering/",
+    "name": "Fingers Numbering",
+    "description": "Demonstration of the numbering of fingertips.",
+    "tags": "p5.xr, hand tracking",
+    "date": "2024-05-06",
+    "media": "finger-numbering",
+    "p5editor": ""
+  },
+  {
     "path": "spatial-computing/handtracking/finger-pyramid/",
     "name": "Finger Pyramid",
     "description": "A pyramid with a pointer finger inside a cube.",
