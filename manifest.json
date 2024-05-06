@@ -27,6 +27,15 @@
     "p5editor": "8asFlgce_"
   },
   {
+    "path": "spatial-computing/handtracking/finger-axis/",
+    "name": "Finger Axis",
+    "description": "Shows the XYZ axis as applied to the main finger.",
+    "tags": "p5.xr, hand tracking",
+    "date": "2024-05-06",
+    "media": "finger-axis",
+    "p5editor": ""
+  },
+  {
     "path": "spatial-computing/handtracking/finger-frame/",
     "name": "Finger Frame",
     "description": "Frame with your fingers",
