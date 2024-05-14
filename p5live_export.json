@@ -1,0 +1,132 @@
+{
+  "version": "1.5.0",
+  "revision": 47,
+  "structure": [
+    {
+      "name": "basics",
+      "mod": "1715719590728",
+      "type": "folder",
+      "toggle": "expand",
+      "contents": [
+        {
+          "name": "DBN chair",
+          "mod": "1715719590728",
+          "type": "sketch",
+          "code": "\nlet libs = ['https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.min.js', 'https://cdn.jsdelivr.net/npm/@tiborudvari/p5.xr@0.4.10/dist/p5xr.js', 'https://cdn.jsdelivr.net/npm/p5.dumblivereload@0.0.3/dist/p5dumbLiveReload.js'];\n\nnew p5(); // manually init p5\n\n// @ts-nocheck\nfunction preload() {\n  createARCanvas();\n}\n\nfunction setup() {\n  describe(\"A chair in space inspired by DBN.\");\n  stroke(255);\n  noFill();\n  fill(0, 0, 0, 0);\n  angleMode(DEGREES);\n  rectMode(CENTER);\n  // startDumbReload(200); -- activate this to do live coding, does not work on p5 web editor\n}\n\nfunction draw() {\n  let f = 0.3;\n  strokeWeight(2);\n  noFill();\n\n  let s = 0.3 * 0.01;\n  let boxTransform = new p5.Matrix();\n  boxTransform.translate([0.25, -0.25, -f]);\n  boxTransform.scale([s, s, s]);\n\n  push();\n  applyMatrix(boxTransform.mat4);\n  box(100, 100, 100);\n  translate(0, -50, 0); \n \n  var d = 5;\n  var h = 11;\n\n  push();\n  translate(30, 0, -30);\n  push();\n  rotateY(45);\n  push();\n  translate(d, 0, 0);\n  line(0, 0, 0, 0, h, 0); \n  pop();\n\n  push();\n  translate(-d, 0, 0);\n  line(0, 0, 0, 0, h, 0); \n  pop();\n\n  push();\n  translate(0, 0, d);\n  line(0, 0, 0, 0, h, 0); \n  pop();\n\n  push();\n  translate(0, 0, -d);\n  line(0, 0, 0, 0, h, 0); \n  pop();\n  pop();\n\n  push();\n  translate(0, h + 1, 0);\n  rotateX(90, 0, 0);\n  fill(0, 0); \n  blendMode(REPLACE);\n  rect(0, 0, 15, 15);\n  blendMode(BLEND);\n  pop();\n\n  push();\n  translate(0, h + 11.5, -7.5);\n  fill(0, 0); \n  blendMode(REPLACE);\n  rect(0, 0, 15, 8);\n  blendMode(BLEND);\n  pop();\n\n  translate(0, h, -7.5);\n  line(0, 0, 0, 0, 7.5, 0); \n\n  pop();\n  rotateY(-90);\n  translate(-35, 2, -50);\n  arc(0, 0, 5, 5, 0, 180);\n\n  push();\n  translate(-2.5, -2, 0);\n  line(0, 0, 0, 0, 2, 0);\n  pop();\n\n  push();\n  translate(2.5, -2, 0);\n  line(0, 0, 0, 0, 2, 0);\n  pop();\n\n  pop();\n}\n\n  "
+        },
+        {
+          "name": "DVD",
+          "mod": "1715719590735",
+          "type": "sketch",
+          "code": "\nlet libs = ['https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/addons/p5.sound.min.js', 'https://cdn.jsdelivr.net/npm/@tiborudvari/p5.xr@0.4.9-0/dist/p5xr.js'];\n\nnew p5(); // manually init p5\n\nconst dirMult = 1e-4;\nconst b = 0.1;\nconst s = 0.03; \nconst offset = new p5.Vector(0, 0, -0.5);\n\nconst vb = b + s / 2;\nlet dir = null;\nlet p = null;\nlet img;\nlet colIndex = 0;\nlet dvdGraphics;\n\n// cols\nconst cols = [\n  [255, 105, 180],  // Bright Pink\n  [0, 255, 255],    // Electric Blue\n  [20, 255, 0],     // Neon Green\n  [255, 255, 0],    // Sunny Yellow\n  [148, 0, 211],    // Vibrant Purple\n  [255, 85, 85],    // Hot Coral\n  [0, 255, 255],    // Cyan (Duplicate of Electric Blue noted earlier, included for completeness)\n  [50, 205, 50],    // Lime Green\n  [64, 224, 208],   // Turquoise\n  [75, 0, 130]      // Dark Purple\n];\n\n\n// utils\nconst mult = (vector, multiplier) => p5.Vector.mult(vector, multiplier);\nconst dot = (v1, v2) => p5.Vector.dot(v1, v2);\nconst sub = (v1, v2) => p5.Vector.sub(v1, v2);\n\nlet offsets = null;\n\nfunction preload(){\n  createARCanvas();\n  img = loadImage('https:/raw.githubusercontent.com/TiborUdvari/sketchbook/main/spatial-computing/basics/dvd/dvd-small.png');\n}\n\nfunction setup() {\n  describe(\"A colorful DVD logo hitting a cube in space.\");\n\n  dvdGraphics = createGraphics(img.width, img.height, WEBGL);\n  \n  dir = p5.Vector.random3D().normalize().mult(dirMult);\n  p = createVector(0, 0, 0);\n  noFill();\n  \n  offsets = [\n    [ 1, 0, 0, PI / 2, 0, 1, 0, 0],\n    [-1, 0, 0, PI / 2, 0, 1 ,0, 0],\n    [0,  1, 0, PI / 2, 1, 0, 0, 0],\n    [0, -1, 0, PI / 2, 1, 0, 0, 0],\n    [0, 0,  1, 0, 0, 1, 0, 0],\n    [0, 0, -1, 0, 0, 1, 0, 0]\n  ]; \n\n  offsets = offsets.map(off => [\n    off[0] * vb, \n    off[1] * vb, \n    off[2] * vb, \n    ...off.splice(3)]);\n  }\n\nfunction draw() {\n  stroke(255);\n\n  checkBounds();\n  \n  push();\n  translate(offset);\n  \n  drawBounds();\n  \n  push();\n  p.add(dir);\n  translate(p);\n  //box(s, s, s);\n  //image(img, 0, 0, s, s);\n  drawDvd();\n\n  pop();\n\n  pop();\n}\n\nfunction drawDvd(){\n  dvdGraphics.clear();\n  // don't understand why i need to divide here\n  dvdGraphics.image(img, 0, 0, dvdGraphics.width / 2, dvdGraphics.height /2 , 0, 0, img.width, img.height, CONTAIN);\n  \n  dvdGraphics.blendMode(MULTIPLY);\n  dvdGraphics.fill(...cols[colIndex]);\n  dvdGraphics.rect(0, 0, dvdGraphics.width, dvdGraphics.height);\n\n  dvdGraphics.blendMode(BLEND);\n\n  fill(255);\n  noStroke();\n  push();\n  texture(dvdGraphics);\n    scale(1, -1, -1); // not sure why\n\n  translate(-s/2, -s/2);\n  plane(s * 2, s * 2); \n  pop();\n}\n\nfunction drawBounds(){\n  // rotation - angle - axis\n  // should I crate it with vertices instead? \n  // Next iteration - do vertices and shaders\n  // pack the data like offset, angle, axis\n\n  for (let i = 0; i < 6; i++) {\n    const [x, y, z, angle, ex, ey, ez, f] = offsets[i];\n    \n    push();\n    translate(x, y, z);\n    rotate(angle, createVector(ex, ey, ez));\n    scale(vb * 2);\n    rect(-0.5, -0.5, 1, 1);\n    pop();\n    \n    noFill();\n    if (f == 1) {\n      colIndex = Math.floor(Math.random() * cols.length); \n      bip();\n      offsets[i][7] = 2; // hack make it happen only once\n    }\n    \n  }\n}\n\nfunction checkBounds() {\n  let normal = null;\n  if (p.x > b) {\n    normal = createVector(-1, 0, 0);\n    offsets[0][7] = 1;\n  }\n  \n  if (p.x < -b ){\n    normal = createVector(1, 0, 0);\n    offsets[1][7] = 1;\n  }\n  \n  if (p.y > b){\n    normal = createVector(0, 1, 0);\n    offsets[2][7] = 1;\n  }\n  \n  if (p.y < -b){\n    normal = createVector(0, -1, 0);\n    offsets[3][7] = 1;\n  }\n  \n  if (p.z > b) {\n    normal = createVector(0, 0, -1);\n    offsets[4][7] = 1;\n  }\n  \n  if (p.z < -b){\n    normal = createVector(0, 0, 1);\n    offsets[5][7] = 1;\n  }\n  \n  if (normal === null) return;\n  \n  // reflection v′= v−2(v⋅n)n\n  // could just use p5 reflect method, but no\n  let d = dot(normal, dir);\n  let proj = mult(normal, d);\n  \n  dir = sub(dir, mult(proj, 2));\n}\n\nfunction bip() {\n  let osc = new p5.Oscillator('sine');\n  osc.freq(440); // Frequency in Hz (A4 note)\n  osc.start();\n  osc.amp(0.5, 0.1); // Set amplitude to 0.5 over 0.1 seconds\n  osc.stop(0.2); // Stop after 0.2 seconds\n}\n\n  "
+        },
+        {
+          "name": "DVD Box",
+          "mod": "1715719590739",
+          "type": "sketch",
+          "code": "\nlet libs = ['https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/addons/p5.sound.min.js', 'https://cdn.jsdelivr.net/npm/@tiborudvari/p5.xr@0.4.9-0/dist/p5xr.js'];\n\nnew p5(); // manually init p5\n\nlet dir = null;\nlet p = null;\nconst b = 0.1;\nconst s = 0.03; \nconst offset = new p5.Vector(0, 0, -0.5);\nconst vb = b + s / 2;\n\n// utils\nconst mult = (vector, multiplier) => p5.Vector.mult(vector, multiplier);\nconst dot = (v1, v2) => p5.Vector.dot(v1, v2);\nconst sub = (v1, v2) => p5.Vector.sub(v1, v2);\n\n// Cube setup\nlet offsets = null;\n\nfunction preload() {\n  createARCanvas();\n}\n\nfunction setup() {\n  dir = p5.Vector.random3D().normalize().mult(0.0001);\n  p = createVector(0, 0, 0);\n  noFill();\n\n  offsets = [\n    [1, 0, 0, PI / 2, 0, 1, 0, 0],\n    [-1, 0, 0, PI / 2, 0, 1, 0, 0],\n    [0, 1, 0, PI / 2, 1, 0, 0, 0],\n    [0, -1, 0, PI / 2, 1, 0, 0, 0],\n    [0, 0, 1, 0, 0, 1, 0, 0],\n    [0, 0, -1, 0, 0, 1, 0, 0],\n  ];\n\n  offsets = offsets.map((off) => [\n    off[0] * vb,\n    off[1] * vb,\n    off[2] * vb,\n    ...off.splice(3),\n  ]);\n}\n\nfunction draw() {\n  stroke(255);\n\n  checkBounds();\n\n  push();\n  translate(offset);\n\n  drawBounds();\n\n  push();\n  p.add(dir);\n  translate(p);\n  box(s, s, s);\n  pop();\n\n  pop();\n}\n\nfunction drawBounds() {\n  for (let i = 0; i < 6; i++) {\n    const [x, y, z, angle, ex, ey, ez, f] = offsets[i];\n    if (f > 0) {\n      fill(255, 255, 255);\n    }\n\n    push();\n    translate(x, y, z);\n    rotate(angle, createVector(ex, ey, ez));\n    scale(vb * 2);\n    rect(-0.5, -0.5, 1, 1);\n    pop();\n\n    noFill();\n    if (f == 1) {\n      bip();\n      offsets[i][7] = 2; // hack make it happen only once\n      setTimeout(() => {\n        offsets[i][7] = 0;\n      }, 50);\n    }\n  }\n}\n\nfunction checkBounds() {\n  let normal = null;\n  if (p.x > b) {\n    normal = createVector(-1, 0, 0);\n    offsets[0][7] = 1;\n  }\n\n  if (p.x < -b) {\n    normal = createVector(1, 0, 0);\n    offsets[1][7] = 1;\n  }\n\n  if (p.y > b) {\n    normal = createVector(0, 1, 0);\n    offsets[2][7] = 1;\n  }\n\n  if (p.y < -b) {\n    normal = createVector(0, -1, 0);\n    offsets[3][7] = 1;\n  }\n\n  if (p.z > b) {\n    normal = createVector(0, 0, -1);\n    offsets[4][7] = 1;\n  }\n\n  if (p.z < -b) {\n    normal = createVector(0, 0, 1);\n    offsets[5][7] = 1;\n  }\n\n  if (normal === null) return;\n\n  // reflection v′= v−2(v⋅n)n\n  // could just use p5 reflect method\n  let d = dot(normal, dir);\n  let proj = mult(normal, d);\n\n  dir = sub(dir, mult(proj, 2));\n}\n\nfunction bip() {\n  let osc = new p5.Oscillator(\"sine\");\n  osc.freq(440); // Frequency in Hz (A4 note)\n  osc.start();\n  osc.amp(0.5, 0.1); // Set amplitude to 0.5 over 0.1 seconds\n  osc.stop(0.2); // Stop after 0.2 seconds\n}\n\n  "
+        }
+      ]
+    },
+    {
+      "name": "handtracking",
+      "mod": "1715719590742",
+      "type": "folder",
+      "toggle": "expand",
+      "contents": [
+        {
+          "name": "Finger Axis",
+          "mod": "1715719590742",
+          "type": "sketch",
+          "code": "\nlet libs = ['https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.min.js', 'https://cdn.jsdelivr.net/npm/@tiborudvari/p5.xr@0.4.11-0/dist/p5xr.js'];\n\nnew p5(); // manually init p5\n\nfunction preload() {\n  createARCanvas();\n}\n\nfunction setup() {\n  describe(\"Shows the XYZ axis as applied to the main finger.\");\n}\n\nfunction draw() {\n  let l = 0.05;\n  \n  strokeWeight(3); \n\n  push();\n  applyMatrix(finger.mat4);\n  \n  // x axis\n  stroke(255, 0, 0);\n  line(0, 0, 0, l, 0, 0);\n\n  // y axis\n  stroke(0, 255, 0);\n  line(0, 0, 0, 0, l, 0);\n\n  // z axis\n  stroke(0, 0, 255);\n  line(0, 0, 0, 0, 0, l);\n\n  pop();\n}\n\n\n  "
+        },
+        {
+          "name": "Finger Frame",
+          "mod": "1715719590745",
+          "type": "sketch",
+          "code": "\nlet libs = ['https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.js', 'https://cdn.jsdelivr.net/npm/@tiborudvari/p5.xr@0.4.9-0/dist/p5xr.js', 'https://cdn.jsdelivr.net/npm/p5.dumblivereload@0.0.3/dist/p5dumbLiveReload.js'];\n\nnew p5(); // manually init p5\n\n// Hand specification indexes https://www.w3.org/TR/webxr-hand-input-1/\n\nfunction preload() {\n  createARCanvas();\n}\n\nfunction setup() {\n  describe(\"Frame something with your fingers.\");\n  // startDumbReload(200);\n}\n\nfunction draw() {\n  noFill();\n  stroke(255);\n\n  let treshold = 0.07;\n  let lp = handLeft[9];\n  let lj = handLeft[6]; // mid joint. Proximal phalanx if you want to be fancy\n  let lt = handLeft[4];\n  let rp = handRight[9];\n  let rj = handRight[6];\n  let rt = handRight[4];\n  \n  let d1 = dist(lp.x, lp.y, lp.z, rt.x, rt.y, rt.z) < treshold;\n  let d2 = dist(rp.x, rp.y, rp.z, lt.x, lt.y, lt.z) < treshold;\n\n  let connected = d1 && d2;\n  strokeWeight(7);\n\n  if (!connected) {\n    beginShape(POINTS); // Left hand\n    vertex(lp.x, lp.y, lp.z);\n    vertex(lj.x, lj.y, lj.z);\n    vertex(lt.x, lt.y, lt.z);\n    endShape();\n\n    beginShape(POINTS); // Right hand\n    vertex(rp.x, rp.y, rp.z);\n    vertex(rj.x, rj.y, rj.z);\n    vertex(rt.x, rt.y, rt.z);\n    endShape();\n  }\n\n  if (connected) {\n    let mid1 = { x: (lt.x + rp.x) / 2, y: (lt.y + rp.y) / 2, z: (lt.z + rp.z) / 2 };\n    let mid2 = { x: (rt.x + lp.x) / 2, y: (rt.y + lp.y) / 2, z: (rt.z + lp.z) / 2 };\n\n    beginShape();\n    vertex(mid1.x, mid1.y, mid1.z);\n    vertex(rj.x, rj.y, rj.z);\n    vertex(mid2.x, mid2.y, mid2.z);\n    vertex(lj.x, lj.y, lj.z);\n    endShape(CLOSE);\n  }\n}\n\n  "
+        },
+        {
+          "name": "Finger Lines",
+          "mod": "1715719590749",
+          "type": "sketch",
+          "code": "\nlet libs = ['https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.min.js', 'https://cdn.jsdelivr.net/npm/@tiborudvari/p5.xr@0.4.9-0/dist/p5xr.js'];\n\nnew p5(); // manually init p5\n\nfunction preload() {\n  createARCanvas();\n}\n\nfunction setup() {\n  describe(\"Lines between each finger of your hand\");\n}\n\nfunction draw() {\n  stroke(255);\n\n  for (let i = 0; i < fingersMain.length; i++) {\n    const currentFinger = fingersMain[i];\n    const nextFinger = fingersMain[(i+1) % fingersMain.length];\n    line(currentFinger.x, currentFinger.y, currentFinger.z, nextFinger.x, nextFinger.y, nextFinger.z);\n  }\n\n  for (let i = 0; i < fingersAlt.length; i++) {\n    const currentFinger = fingersAlt[i];\n    const nextFinger = fingersAlt[(i+1) % fingersAlt.length];\n    line(currentFinger.x, currentFinger.y, currentFinger.z, nextFinger.x, nextFinger.y, nextFinger.z);\n  }\n}\n\n  "
+        },
+        {
+          "name": "Fingers Numbering",
+          "mod": "1715719590751",
+          "type": "sketch",
+          "code": "\nlet libs = ['https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.min.js', 'https://cdn.jsdelivr.net/npm/@tiborudvari/p5.xr@0.4.11-0/dist/p5xr.js'];\n\nnew p5(); // manually init p5\n\n// Fonts need to be loaded and set for WEBGL\nlet font;\n\nfunction preload() {\n  createARCanvas();\n  font = loadFont('https:/raw.githubusercontent.com/TiborUdvari/sketchbook/main/spatial-computing/handtracking/finger-numbering/assets/SpaceGrotesk-Regular.otf');\n}\n\nfunction setup() {\n  describe(\"Demonstrates the indexing of fingers\");\n  textFont(font);\n  textAlign(CENTER, BASELINE);\n  // Texts were occluding each other otherwise\n  gl = this._renderer.GL;\n  gl.disable(gl.DEPTH_TEST);\n}\n\nfunction draw() {\n  fill(255);\n  for (let i = 0; i < fingersMain.length; i++) {\n    const f = fingersMain[i];\n    push();\n    translate(f.x, f.y, f.z);\n    translate(0, 0.02, 0);\n    rotateX(PI);\n    // applyMatrix(f.mat4); - use this if you want to rotate numbers with finger tips\n    scale(0.001);\n    text(i, 0, 0);     \n    pop();\n  }\n\n  for (let i = 0; i < fingersAlt.length; i++) {\n    const f = fingersAlt[i];\n    push();\n    translate(f.x, f.y, f.z);\n    translate(0, 0.02, 0);\n    rotateX(PI);\n    scale(0.001);\n    text(i, 0, 0); \n    pop();\n  }\n}\n\n  "
+        },
+        {
+          "name": "Finger Pyramid",
+          "mod": "1715719590754",
+          "type": "sketch",
+          "code": "\nlet libs = ['https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.min.js', 'https://cdn.jsdelivr.net/npm/@tiborudvari/p5.xr@0.4.9-0/dist/p5xr.js'];\n\nnew p5(); // manually init p5\n\n// todo - fix cube bounds\n\nfunction preload() {\n  createARCanvas();\n}\n\nfunction setup() {\n  describe(\"A pyramid with your finger at the peak inside a box.\");\n}\n\nfunction draw() {\n  let f = 0.3;\n  stroke(255);\n  fill(0, 0, 0, 0);\n  noFill();\n\n  let s = 0.3;\n  let boxTransform = new p5.Matrix();\n  boxTransform.translate([0.25, -0.25, -f]);\n  boxTransform.scale([s, s, s]);\n\n  let inverseBoxTransform = boxTransform.copy().invert(new p5.Matrix());\n  let lf = inverseBoxTransform.multiplyPoint(finger); \n  \n  let isInside = ((abs(lf.x) < .5) && (abs(lf.y) < .5) && (abs(lf.z) < .5));\n  let vertPositions = [\n    {x: -0.5, y: -0.5, z: -0.5}, \n    {x: 0.5, y: -0.5, z: 0.5}, \n    {x: -0.5, y: -0.5, z: 0.5}, \n    {x: 0.5, y: -0.5, z: -0.5}, \n  ]; \n\n  if (isInside) {\n    for (let i = 0; i < vertPositions.length; i++) {\n      const vert = vertPositions[i];\n      let globalVert = boxTransform.multiplyPoint(vert);\n\n      line(finger.x, finger.y, finger.z, globalVert.x, globalVert.y, globalVert.z);\n    }\n  }\n\n  push();\n  applyMatrix(boxTransform.mat4);\n  box(1, 1, 1);\n  pop();\n}\n\n  "
+        },
+        {
+          "name": "Finger Trails",
+          "mod": "1715719590757",
+          "type": "sketch",
+          "code": "\nlet libs = ['https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.min.js', 'https://cdn.jsdelivr.net/npm/@tiborudvari/p5.xr@0.4.10/dist/p5xr.js'];\n\nnew p5(); // manually init p5\n\nlet trails = [[], [], [], [], []];\n\nfunction preload() {\n  createARCanvas();\n}\n\nfunction setup() {\n  describe(\"Leave trail with left hand while right one is pinched.\");\n  mainHandMode(RIGHT);\n}\n\nfunction draw() {\n  sphere(0.0001); // hack, it is currently a problem if we don't draw anything\n  strokeWeight(4);\n  stroke(255);\n  noFill();\n\n  if (fingersArePinched) {\n    for (let i = 0; i < fingersAlt.length; i++) {\n      let finger = fingersAlt[i];\n      trails[i].push({...finger}); \n    }\n  } else {\n    trails = [[], [], [], [], []];\n  }\n \n  for (let i = 0; i < trails.length; i++) {\n    const trail = trails[i];\n    beginShape();\n    for (const v of trail) {\n      vertex(v.x, v.y, v.z);\n    }\n    endShape();\n  } \n}\n\n  "
+        },
+        {
+          "name": "Finger Pinch",
+          "mod": "1715719590760",
+          "type": "sketch",
+          "code": "\nlet libs = ['https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.min.js', 'https://cdn.jsdelivr.net/npm/@tiborudvari/p5.xr@0.4.10/dist/p5xr.js'];\n\nnew p5(); // manually init p5\n\nlet isBox = true;\n\nfunction preload() {\n  createARCanvas();\n}\n\nfunction setup() {\n  describe(\"Toggle between a box and a sphere with a pinch.\");\n  mainHandMode(RIGHT);\n}\n\nfunction draw() {\n  normalMaterial();\n  push();\n  translate(finger.x, finger.y, finger.z);\n  scale(0.01);\n  if (isBox) {\n    box(1, 1, 1);\n  } else {\n    sphere(1);\n  }\n  pop();\n}\n\nfunction fingersPinched(){\n  isBox = !isBox;\n}\n\n  "
+        },
+        {
+          "name": "Full Hands",
+          "mod": "1715719590763",
+          "type": "sketch",
+          "code": "\nlet libs = ['https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.min.js', 'https://cdn.jsdelivr.net/npm/@tiborudvari/p5.xr@0.4.9-0/dist/p5xr.js'];\n\nnew p5(); // manually init p5\n\nfunction preload() {\n  createARCanvas();\n}\n\nfunction setup() {\n  describe(\"Spheres on all the skeletal joints of the hand.\");\n}\n\nfunction draw() {\n  normalMaterial();\n  for (let i = 0; i < hands.length; i++) {\n    const joint = hands[i];\n    push();\n    translate(joint.x, joint.y, joint.z);\n    sphere(0.01);\n    pop();\n  }\n}\n\n  "
+        },
+        {
+          "name": "Hello Handtracking",
+          "mod": "1715719590765",
+          "type": "sketch",
+          "code": "\nlet libs = ['https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.min.js', 'https://cdn.jsdelivr.net/npm/@tiborudvari/p5.xr@0.4.9-0/dist/p5xr.js'];\n\nnew p5(); // manually init p5\n\nfunction preload() {\n  createARCanvas();\n}\n\nfunction setup() {\n  describe(\"A sphere on your right index finger\");\n  mainHandMode(RIGHT);\n}\n\nfunction draw() {\n  normalMaterial();\n  push();\n  translate(finger.x, finger.y, finger.z);\n  sphere(0.01);\n  pop();\n}\n\n  "
+        },
+        {
+          "name": "Pinch Drawing",
+          "mod": "1715719590768",
+          "type": "sketch",
+          "code": "\nlet libs = ['https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.min.js', 'https://cdn.jsdelivr.net/npm/@tiborudvari/p5.xr@0.4.10/dist/p5xr.js'];\n\nnew p5(); // manually init p5\n\nlet lines = [];\nlet verts = [];\n\nlet lastClick = 0;\n\nfunction preload() {\n  createARCanvas();\n}\n\nfunction setup() {\n  describe(\"Draw lines with the pinch gesture. Double pinch to erase.\");\n  mainHandMode(RIGHT);\n}\n\nfunction draw() {\n  p5.instance._pinchTreshold = 25e-3;\n  strokeWeight(5);\n  stroke(255);\n  noFill();\n\n  for (const lineData of lines) {\n    let verts = lineData;\n    beginShape();\n    for (let i = 0; i < verts.length; i++) {\n      const v = verts[i];\n      vertex(v.x, v.y, v.z);\n    }\n    endShape();\n  }\n \n  push();\n  translate(finger.x, finger.y, finger.z);\n  scale(0.003);\n  sphere(1);\n  pop();\n  \n  if (frameCount - lastClick < 15) return;\n  if (fingersArePinched) {\n    if (verts.length > 0) {\n      const lv = verts[verts.length - 1];\n      const spaced = dist(lv.x, lv.y, lv.z, finger.x, finger.y, finger.z);\n      if (spaced > 5e-3) {\n        verts.push({...finger});\n      }\n    } \n    else \n    {\n      verts.push({...finger});\n    }\n  }\n}\n\nfunction fingersPinched(){\n  if (frameCount - lastClick < 50) {\n    lines = [];\n    verts = [];\n    lines.push(verts);\n  } else {\n    verts = [];\n    lines.push(verts);\n  }\n  lastClick = frameCount;\n}\n\n  "
+        }
+      ]
+    },
+    {
+      "name": "spatial-computing",
+      "mod": "1715719590770",
+      "type": "folder",
+      "toggle": "expand",
+      "contents": [
+        {
+          "name": "Hello AR Box",
+          "mod": "1715719590770",
+          "type": "sketch",
+          "code": "\nlet libs = ['https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.min.js', 'https://cdn.jsdelivr.net/npm/@tiborudvari/p5.xr@0.4.8-0/dist/p5xr.js'];\n\nnew p5(); // manually init p5\n\nfunction preload() {\n  createARCanvas();\n}\n\nfunction setup() {\n  describe(\"A cube waiting to be seen\");\n}\n\nfunction draw() {\n  push();\n  translate(0, 0, -0.4);\n  box(0.1, 0.1, 0.1);\n  pop();\n}\n\n  "
+        }
+      ]
+    },
+    {
+      "name": "utils",
+      "mod": "1715719590773",
+      "type": "folder",
+      "toggle": "expand",
+      "contents": [
+        {
+          "name": "p5.js Dumb Live Reload",
+          "mod": "1715719590773",
+          "type": "sketch",
+          "code": "\nlet libs = ['https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.min.js', 'https://cdn.jsdelivr.net/npm/@tiborudvari/p5.xr@0.4.8-0/dist/p5xr.js', 'https://cdn.jsdelivr.net/npm/p5.dumblivereload@0.0.1/dist/p5dumbLiveReload.js'];\n\nnew p5(); // manually init p5\n\n// @ts-nocheck\nfunction setup() {\n  createCanvas(window.innerWidth, window.innerHeight);\n  describe('Example of using dumb-reload, a naive pull based live-reload library. It reloads the sketch without the need for a full page refresh.');\n}\n\nfunction draw() {\n  background(100);  \n  ellipse(100, 100, 40, 40);\n  ellipse(200, 100, 40, 40);\n}\n\n  "
+        }
+      ]
+    }
+  ],
+  "count": {
+    "sketches": 15,
+    "folders": 15
+  }
+}

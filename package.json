@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "manifest": "node scripts/generateManifest.js && git add manifest.json",
+    "p5live-export": "node scripts/p5liveExport.js",
     "optimize": "./scripts/optimize.sh media/",
     "media": "npm run optimize && dvc add media && dvc push && git add media.dvc",
     "setup-ssl": "npm run generate-privatekey && npm run generate-csr && npm run generate-cert",
@@ -17,7 +18,10 @@
     "metadata": "node scripts/updateMetadata.js",
     "editorUpload": "node scripts/editorUpload.js",
     "editorSync": "npm run metadata && npm run editorUpload && npm run metadata",
-    "precommit": "npm run media && npm run metadata && npm run manifest"
+    "precommit": "npm run media && npm run metadata && npm run manifest && npm run p5live-export"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   },
   "repository": {
     "type": "git",
