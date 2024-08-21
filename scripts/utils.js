@@ -31,8 +31,8 @@ function fullPath(projectPath) {
  */
 function getSketchIndexes(dir = directoryPath, sketchDirs = []) {
   readdirSync(dir).forEach(file => {
-    if (file === 'node_modules') return;
-    if (file === 'test-data') return;
+    const ignoreList = ['learning', 'utils', 'node_modules', 'test-data'];
+    if (ignoreList.includes(file)) return;
 
     const fullPath = join(dir, file);
     if (statSync(fullPath).isDirectory()) {

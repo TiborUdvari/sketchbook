@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "esnext",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "module": "ESNext",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "checkJs": true,
     "baseUrl": ".",
-    "types": ["p5"],
+    "types": ["p5", "@webgpu/types"],
     "paths": {
       "*": ["types/*"],
       "p5": ["node_modules/@types/p5"],
